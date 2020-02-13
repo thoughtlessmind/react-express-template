@@ -12,6 +12,10 @@ app.get("/api", (req, res) => {
     res.json(data)
 })
 
+app.get("/", function (req, res) {
+  res.sendFile(__dirname + "/client/public/index.html");
+})
+
 const port = process.env.PORT || 5000
 
 app.get("/testApi", (req, res) =>{
