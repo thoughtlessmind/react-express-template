@@ -15,9 +15,29 @@ app.get("/api", (req, res) => {
     res.json(data)
 })
 
-app.get("/", function (req, res) {
-  res.sendFile;
+
+app.get("/testApi", (req, res) =>{
+        
+  https.get('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY', (resp) => {
+      let data = '';
+  
+      // A chunk of data has been recieved.
+      resp.on('data', (chunk) => {
+      data += chunk;
+      res.json(JSON.parse(data))
+      });
+  
+      // The whole response has been received. Print out the result.
+      resp.on('end', () => {
+      console.log(JSON.parse(data).explanation);
+      });
+  
+  }).on("error", (err) => {
+      console.log("Error: " + err.message);
+  });
+  
 })
+
 
 if(process.env.NODE_ENV === 'production') {  
   app.use(express.static(path.join(__dirname, 'client/build'))); 
@@ -27,27 +47,6 @@ if(process.env.NODE_ENV === 'production') {
 
 const port = process.env.PORT || 5000
 
-app.get("/testApi", (req, res) =>{
-        
-    https.get('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY', (resp) => {
-        let data = '';
-    
-        // A chunk of data has been recieved.
-        resp.on('data', (chunk) => {
-        data += chunk;
-        res.json(JSON.parse(data))
-        });
-    
-        // The whole response has been received. Print out the result.
-        resp.on('end', () => {
-        console.log(JSON.parse(data).explanation);
-        });
-    
-    }).on("error", (err) => {
-        console.log("Error: " + err.message);
-    });
-    
-})
 
 
 
