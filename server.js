@@ -1,8 +1,9 @@
 const express = require("express")
 const app = express()
 const https = require('https');
+const path = require('path')
 
-app.use(express.static("build"));
+app.use(express.static("client"));
 app.use(bodyParser.urlencoded({
     extended: true
 }));
@@ -18,7 +19,7 @@ app.get("/api", (req, res) => {
 })
 
 app.get("/", function (req, res) {
-  res.sendFile(__dirname + "/build/static/index.html");
+  res.sendFile(__dirname + "/client/build/static/index.html");
 })
 
 const port = process.env.PORT || 5000
