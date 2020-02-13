@@ -3,7 +3,7 @@ const app = express()
 const https = require('https');
 const path = require('path')
 
-app.use(express.static("client"));
+app.use(express.static("client/build"));
 app.use(bodyParser.urlencoded({
     extended: true
 }));
@@ -66,4 +66,4 @@ https.get('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY', (resp) => {
   console.log("Error: " + err.message);
 });
 
-app.listen(process.env.PORT || 5000, ()=>console.log(`Server has started on port ${port}`))
+app.listen(port, ()=>console.log(`Server has started on port ${port}`))
